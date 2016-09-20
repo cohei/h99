@@ -8,10 +8,12 @@ module H99
   , h5
   , h6
   , h7
+  , NestedList
   , h8
   , h9
   , h10
   , h11
+  , Encoded
   , h12
   , h13
   , h14
@@ -152,6 +154,7 @@ h9 = group
 h10 :: Eq a => [a] -> [(Int, a)]
 h10 = map (length &&& the) . h9
 
+-- | Run-length encoding, dealing one element as special case.
 data Encoded a = Single a | Multiple Int a
   deriving Show
 
