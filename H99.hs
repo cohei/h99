@@ -35,6 +35,7 @@ module H99
   , h28_2
   , h31
   , h32
+  , h33
   ) where
 
 import Control.Arrow ((&&&), first, second)
@@ -413,3 +414,12 @@ h31 n = not $ any (\i -> n `mod` i == 0) $ takeWhile (\i -> i * i <= n) [2..]
 h32 :: Int -> Int -> Int
 h32 n 0 = abs n
 h32 n m = h32 m (n `mod` m)
+
+-- | Determine whether two positive integer numbers are coprime. Two numbers are coprime if their greatest common divisor equals 1.
+--
+-- Example:
+--
+-- >>> h33 35 64
+-- True
+h33 :: Int -> Int -> Bool
+h33 n m = h32 n m == 1
