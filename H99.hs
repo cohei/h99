@@ -1,5 +1,10 @@
 {-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE TupleSections #-}
+
+{-|
+Answers for <https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems H-99: Ninety-Nine Haskell Problems>. @doctest@ed.
+-}
+
 module H99
   ( h1
   , h2
