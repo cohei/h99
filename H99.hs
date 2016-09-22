@@ -46,6 +46,7 @@ module H99
   , h36
   , h37
   , h38
+  , h39
   ) where
 
 import Control.Arrow ((&&&), first, second)
@@ -504,3 +505,15 @@ h37 = product . map (\(p, m) -> (p - 1) * p ^ (m - 1)) . h36
 -- >>> h38
 -- True
 h38 = h34 10090 == h37 10090
+
+-- | A list of prime numbers.
+--
+-- Given a range of integers by its lower and upper limit, construct a list of all prime numbers in that range.
+--
+-- Example:
+--
+-- >>> h39 10 20
+-- [11,13,17,19]
+h39 :: Int -> Int -> [Int]
+-- h39 = _
+h39 n m = filter h31 [n..m]
