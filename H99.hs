@@ -45,6 +45,7 @@ module H99
   , h35
   , h36
   , h37
+  , h38
   ) where
 
 import Control.Arrow ((&&&), first, second)
@@ -495,3 +496,11 @@ h36 = map swap . h10 . h35
 -- 4
 h37 :: Int -> Int
 h37 = product . map (\(p, m) -> (p - 1) * p ^ (m - 1)) . h36
+
+-- | Compare the two methods of calculating Euler's totient function.
+--
+-- Use the solutions of problems 34 and 37 to compare the algorithms. Take the number of reductions as a measure for efficiency. Try to calculate phi(10090) as an example.
+--
+-- >>> h38
+-- True
+h38 = h34 10090 == h37 10090
