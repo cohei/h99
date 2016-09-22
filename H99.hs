@@ -41,6 +41,7 @@ module H99
   , h31
   , h32
   , h33
+  , h34
   ) where
 
 import Control.Arrow ((&&&), first, second)
@@ -428,3 +429,17 @@ h32 n m = h32 m (n `mod` m)
 -- True
 h33 :: Int -> Int -> Bool
 h33 n m = h32 n m == 1
+
+-- | Calculate Euler's totient function phi(m).
+--
+-- Euler's so-called totient function phi(m) is defined as the number of positive integers r (1 <= r < m) that are coprime to m.
+--
+-- Example: m = 10: r = 1,3,7,9; thus phi(m) = 4. Note the special case: phi(1) = 1.
+--
+-- Example:
+--
+-- >>> h34 10
+-- 4
+h34 :: Int -> Int
+h34 1 = 1
+h34 n = length $ filter (h33 n) [1..n]
