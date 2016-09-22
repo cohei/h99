@@ -43,6 +43,7 @@ module H99
   , h33
   , h34
   , h35
+  , h36
   ) where
 
 import Control.Arrow ((&&&), first, second)
@@ -463,3 +464,14 @@ firstFactor :: Int -> Maybe (Int, Int)
 firstFactor n = listToMaybe [ (m, d) | m <- candidates, let (d, r) = n `divMod` m, r == 0 ]
   where
     candidates = takeWhile (\m -> m * m <= n) [2..]
+
+-- | Determine the prime factors of a given positive integer.
+--
+-- Construct a list containing the prime factors and their multiplicity.
+--
+-- Example:
+--
+-- >>> h36 315
+-- [(3,2),(5,1),(7,1)]
+h36 :: Int -> [(Int, Int)]
+h36 = map swap . h10 . h35
