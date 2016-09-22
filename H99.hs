@@ -42,11 +42,13 @@ module H99
   , h32
   , h33
   , h34
+  , h35
   ) where
 
 import Control.Arrow ((&&&), first, second)
 import Control.Monad (join)
 import Data.List (group, unfoldr, sortOn)
+import Data.Maybe (listToMaybe)
 import Data.Tuple (swap)
 import GHC.Exts (the)
 import System.Random.MWC.Probability (create, discreteUniform, samples, sample)
@@ -443,3 +445,21 @@ h33 n m = h32 n m == 1
 h34 :: Int -> Int
 h34 1 = 1
 h34 n = length $ filter (h33 n) [1..n]
+
+-- | Determine the prime factors of a given positive integer.
+--
+-- Construct a flat list containing the prime factors in ascending order.
+--
+-- Example:
+--
+-- >>> h35 315
+-- [3,3,5,7]
+h35 :: Int -> [Int]
+h35 n = case firstFactor n of
+  Nothing -> [n]
+  Just (factor, next) -> factor : h35 next
+
+firstFactor :: Int -> Maybe (Int, Int)
+firstFactor n = listToMaybe [ (m, d) | m <- candidates, let (d, r) = n `divMod` m, r == 0 ]
+  where
+    candidates = takeWhile (\m -> m * m <= n) [2..]
