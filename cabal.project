@@ -1,0 +1,5 @@
+packages: .
+
+-- for doctest
+test-show-details: streaming
+write-ghc-environment-files: always

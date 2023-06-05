@@ -1,6 +1,3 @@
-{-# LANGUAGE RankNTypes #-}
-{-# LANGUAGE TupleSections #-}
-
 {-|
 Answers for <https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems H-99: Ninety-Nine Haskell Problems>. @doctest@ed.
 -}
@@ -47,6 +44,9 @@ module H99
   , h37
   , h38
   , h39
+  , h40
+  , h41
+  , h41'
   ) where
 
 import Control.Arrow ((&&&), first, second)
