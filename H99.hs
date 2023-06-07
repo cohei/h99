@@ -47,6 +47,8 @@ module H99
   , h40
   , h41
   , h41'
+  , h46
+  , h47
   ) where
 
 import Control.Arrow ((&&&), first, second)
@@ -550,3 +552,39 @@ h41 n m = map h40 $ filter even [n..m]
 
 h41' :: Int -> Int -> Int -> [(Int, Int)]
 h41' n m level = filter (\(p, q) -> p > level && q > level) $ h41 n m
+
+-- | (**) Define predicates and/2, or/2, nand/2, nor/2, xor/2, impl/2 and equ/2 (for logical equivalence) which succeed or fail according to the result of their respective operations; e.g. and(A,B) will succeed, if and only if both A and B succeed.
+--
+-- A logical expression in two variables can then be written as in the following example: and(or(A,B),nand(A,B)).
+--
+-- Now, write a predicate table/3 which prints the truth table of a given logical expression in two variables.
+--
+-- Example:
+--
+-- >>> h46 (\a b -> (and' a (or' a b)))
+-- True True True
+-- True False True
+-- False True False
+-- False False False
+h46 :: (Bool -> Bool -> Bool) -> IO ()
+h46 f = mapM_ (\(b1, b2, b) -> putStrLn $ unwords $ map show [b1, b2, b]) $ (\b1 b2 -> (b1, b2, f b1 b2)) <$> booleans <*> booleans
+  where
+    booleans = [True, False]
+
+and', or' :: Bool -> Bool -> Bool
+and' = (&&)
+or' = (||)
+
+-- | (*) Truth tables for logical expressions (2).
+--
+-- Continue problem P46 by defining and/2, or/2, etc as being operators. This allows to write the logical expression in the more natural way, as in the example: A and (A or not B). Define operator precedence as usual; i.e. as in Java.
+--
+-- Example:
+--
+-- >>> h47 (\a b -> a `and'` (a `or'` not b))
+-- True True True
+-- True False True
+-- False True False
+-- False False False
+h47 :: (Bool -> Bool -> Bool) -> IO ()
+h47 = h46
