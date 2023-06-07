@@ -49,10 +49,11 @@ module H99
   , h41'
   , h46
   , h47
+  , h48
   ) where
 
 import Control.Arrow ((&&&), first, second)
-import Control.Monad (join)
+import Control.Monad (join, replicateM)
 import Data.List (group, unfoldr, sortOn)
 import Data.Maybe (listToMaybe)
 import Data.Tuple (swap)
@@ -571,6 +572,8 @@ h46 f = mapM_ (\(b1, b2, b) -> putStrLn $ unwords $ map show [b1, b2, b]) $ (\b1
   where
     booleans = [True, False]
 
+infixr 3 `and'`
+infixr 2 `or'`
 and', or' :: Bool -> Bool -> Bool
 and' = (&&)
 or' = (||)
@@ -588,3 +591,30 @@ or' = (||)
 -- False False False
 h47 :: (Bool -> Bool -> Bool) -> IO ()
 h47 = h46
+
+-- | (**) Truth tables for logical expressions (3).
+--
+-- Generalize problem P47 in such a way that the logical expression may contain any number of logical variables. Define table/2 in a way that table(List,Expr) prints the truth table for the expression Expr, which contains the logical variables enumerated in List.
+--
+-- Example:
+--
+-- >>> h48 3 (\[a,b,c] -> a `and'` (b `or'` c) `equ'` a `and'` b `or'` a `and'` c)
+-- True  True  True  True
+-- True  True  False True
+-- True  False True  True
+-- True  False False True
+-- False True  True  True
+-- False True  False True
+-- False False True  True
+-- False False False True
+h48 :: Int -> ([Bool] -> Bool) -> IO ()
+h48 n f = mapM_ (putStrLn . unwords . map show') $ [ bs ++ [f bs] | bs <- replicateM n booleans ]
+  where
+    booleans = [True, False]
+
+    show' False = show False
+    show' True  = show True ++ " "
+
+infix 1 `equ'`
+equ' :: Bool -> Bool -> Bool
+equ' = (==)
