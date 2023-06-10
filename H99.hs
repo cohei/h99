@@ -62,7 +62,7 @@ import Data.List (group, unfoldr, sortOn)
 import Data.Maybe (listToMaybe)
 import Data.Tuple (swap)
 import GHC.Exts (the)
-import System.Random.MWC.Probability (create, discreteUniform, samples, sample, Prob)
+import System.Random (randomRIO)
 
 -- | Find the last element of a list.
 --
@@ -309,9 +309,10 @@ h22 = enumFromTo
 -- >>> all (\c -> c `elem` "abcdefgh") cs
 -- True
 h23 :: Int -> [a] -> IO [a]
-h23 n xs = do
-  gen <- create
-  samples n (discreteUniform xs) gen
+h23 n xs = replicateM n $ discreteUniform xs
+
+discreteUniform :: [a] -> IO a
+discreteUniform xs = (xs !!) <$> randomRIO (0, length xs - 1)
 
 -- | Lotto: Draw N different random numbers from the set 1..M.
 --
@@ -322,19 +323,18 @@ h23 n xs = do
 -- >>> all (<= 49) is
 -- True
 h24 :: Int -> Int -> IO [Int]
-h24 n m = create >>= go []
+h24 n m = go []
   where
-    dist :: Prob IO Int
+    dist :: IO Int
     dist = discreteUniform $ h22 1 m
 
-    go acc gen
+    go acc
       | length acc == n = return acc
       | otherwise       = do
-          i <- sample dist gen
+          i <- dist
           if i `elem` acc
-            then go acc gen
-            else go (i : acc) gen
-
+            then go acc
+            else go (i : acc)
 
 -- | Generate a random permutation of the elements of a list.
 --
