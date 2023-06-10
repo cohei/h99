@@ -1,3 +1,7 @@
+{-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE StandaloneKindSignatures #-}
+
 {-|
 Answers for <https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems H-99: Ninety-Nine Haskell Problems>. @doctest@ed.
 -}
@@ -10,12 +14,10 @@ module H99
   , h5
   , h6
   , h7
-  , NestedList
   , h8
   , h9
   , h10
   , h11
-  , Encoded
   , h12
   , h13
   , h14
@@ -55,11 +57,12 @@ module H99
 
 import Control.Arrow ((&&&), first, second)
 import Control.Monad (join, replicateM)
+import Data.Kind (Type)
 import Data.List (group, unfoldr, sortOn)
 import Data.Maybe (listToMaybe)
 import Data.Tuple (swap)
 import GHC.Exts (the)
-import System.Random.MWC.Probability (create, discreteUniform, samples, sample)
+import System.Random.MWC.Probability (create, discreteUniform, samples, sample, Prob)
 
 -- | Find the last element of a list.
 --
@@ -142,6 +145,7 @@ h7 (Elem x) = [x]
 h7 (List xs) = xs >>= h7
 
 -- | We have to define a new data type, because lists in Haskell are homogeneous.
+type NestedList :: Type -> Type
 data NestedList a = Elem a | List [NestedList a]
 
 -- | Eliminate consecutive duplicates of list elements.
@@ -172,8 +176,9 @@ h10 :: Eq a => [a] -> [(Int, a)]
 h10 = map (length &&& the) . h9
 
 -- | Run-length encoding, dealing one element as special case.
+type Encoded :: Type -> Type
 data Encoded a = Single a | Multiple Int a
-  deriving Show
+  deriving stock Show
 
 -- | Modified run-length encoding.
 --
@@ -184,6 +189,7 @@ data Encoded a = Single a | Multiple Int a
 h11 :: Eq a => [a] -> [Encoded a]
 h11 = map toEncoded . h10
   where
+    toEncoded :: (Int, a) -> Encoded a
     toEncoded (1, x) = Single x
     toEncoded (n, x) = Multiple n x
 
@@ -196,6 +202,7 @@ h11 = map toEncoded . h10
 h12 :: [Encoded a] -> [a]
 h12 = concatMap fromEncoded
   where
+    fromEncoded :: Encoded a -> [a]
     fromEncoded (Single x)     = [x]
     fromEncoded (Multiple n x) = replicate n x
 
@@ -208,6 +215,7 @@ h12 = concatMap fromEncoded
 h13 :: Eq a => [a] -> [Encoded a]
 h13 = map toEncoded . group
   where
+    toEncoded :: [a] -> Encoded a
     toEncoded []  = undefined
     toEncoded [x] = Single x
     toEncoded xs  = Multiple (length xs) (head xs)
@@ -233,6 +241,7 @@ h15 = concatMap . replicate
 h16 :: Int -> [a] -> [a]
 h16 n = concat . unfoldr step
   where
+    step :: [a] -> Maybe ([a], [a])
     step xs = if null xs then Nothing else Just (take (n - 1) xs, drop n xs)
 
 -- | Split a list into two parts; the length of the first part is given.
@@ -271,9 +280,10 @@ h19 n = join $ (uncurry (++) .) . (swap .) . splitAt . mod n . length
 -- >>> h20 2 "abcd"
 -- ('b',"acd")
 h20 :: Int -> [a] -> (a, [a])
-h20 n xs = (z , ys ++ zs)
-  where
-    (ys, z:zs) = splitAt (n - 1) xs
+h20 n xs =
+  case splitAt (n - 1) xs of
+    (_, []) -> error "out of bound"
+    (ys, z:zs) -> (z , ys ++ zs)
 
 -- | Insert an element at a given position into a list.
 --
@@ -314,7 +324,9 @@ h23 n xs = do
 h24 :: Int -> Int -> IO [Int]
 h24 n m = create >>= go []
   where
+    dist :: Prob IO Int
     dist = discreteUniform $ h22 1 m
+
     go acc gen
       | length acc == n = return acc
       | otherwise       = do
@@ -407,9 +419,10 @@ h28_1 = sortOn length
 --
 -- >>> h28_2 ["abc", "de", "fgh", "de", "ijkl", "mn", "o"]
 -- ["ijkl","o","abc","fgh","de","de","mn"]
-h28_2 :: [[a]] -> [[a]]
+h28_2 :: forall a. [[a]] -> [[a]]
 h28_2 xss = sortOn (length . sameLengthWith) xss
   where
+    sameLengthWith :: [a] -> [[a]]
     sameLengthWith xs = filter ((length xs ==) . length) xss
 
 -- | Determine whether a given integer number is prime.
@@ -508,6 +521,7 @@ h37 = product . map (\(p, m) -> (p - 1) * p ^ (m - 1)) . h36
 --
 -- >>> h38
 -- True
+h38 :: Bool
 h38 = h34 10090 == h37 10090
 
 -- | A list of prime numbers.
@@ -563,6 +577,7 @@ h41' n m level = filter (\(p, q) -> p > level && q > level) $ h41 n m
 --
 -- Example:
 --
+-- >>> infixr 3 `and'` ; infixr 2 `or'` ; and', or' :: Bool -> Bool -> Bool ; and' = (&&) ; or' = (||)
 -- >>> h46 (\a b -> (and' a (or' a b)))
 -- True True True
 -- True False True
@@ -573,18 +588,13 @@ h46 f = mapM_ (\(b1, b2, b) -> putStrLn $ unwords $ map show [b1, b2, b]) $ (\b1
   where
     booleans = [True, False]
 
-infixr 3 `and'`
-infixr 2 `or'`
-and', or' :: Bool -> Bool -> Bool
-and' = (&&)
-or' = (||)
-
 -- | (*) Truth tables for logical expressions (2).
 --
 -- Continue problem P46 by defining and/2, or/2, etc as being operators. This allows to write the logical expression in the more natural way, as in the example: A and (A or not B). Define operator precedence as usual; i.e. as in Java.
 --
 -- Example:
 --
+-- >>> infixr 3 `and'` ; infixr 2 `or'` ; and', or' :: Bool -> Bool -> Bool ; and' = (&&) ; or' = (||)
 -- >>> h47 (\a b -> a `and'` (a `or'` not b))
 -- True True True
 -- True False True
@@ -599,6 +609,8 @@ h47 = h46
 --
 -- Example:
 --
+-- >>> infixr 3 `and'` ; infixr 2 `or'` ; and', or' :: Bool -> Bool -> Bool ; and' = (&&) ; or' = (||)
+-- >>> infix 1 `equ'` ; equ' :: Bool -> Bool -> Bool ; equ' = (==)
 -- >>> h48 3 (\[a,b,c] -> a `and'` (b `or'` c) `equ'` a `and'` b `or'` a `and'` c)
 -- True  True  True  True
 -- True  True  False True
@@ -615,10 +627,6 @@ h48 n f = mapM_ (putStrLn . unwords . map show') $ [ bs ++ [f bs] | bs <- replic
 
     show' False = show False
     show' True  = show True ++ " "
-
-infix 1 `equ'`
-equ' :: Bool -> Bool -> Bool
-equ' = (==)
 
 -- | (**) Gray codes.
 --
