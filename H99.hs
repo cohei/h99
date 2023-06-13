@@ -1,3 +1,5 @@
+{-# LANGUAGE DeriveFoldable #-}
+{-# LANGUAGE DeriveFunctor #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE StandaloneKindSignatures #-}
@@ -53,15 +55,19 @@ module H99
   , h47
   , h48
   , h49
+  , h50
   ) where
 
 import Control.Arrow ((&&&), first, second)
 import Control.Monad (join, replicateM)
+import Data.Foldable (toList)
 import Data.Kind (Type)
-import Data.List (group, unfoldr, sortOn)
-import Data.Maybe (listToMaybe)
+import Data.List (group, unfoldr, sortOn, find)
+import Data.Maybe (listToMaybe, fromJust)
+import Data.Monoid (Sum(Sum, getSum))
 import Data.Tuple (swap)
 import GHC.Exts (the)
+import Numeric.Natural (Natural)
 import System.Random (randomRIO)
 
 -- | Find the last element of a list.
@@ -649,3 +655,52 @@ h49 1 = ["0", "1"]
 h49 n = map ('0' :) gray' ++ map ('1' :) (reverse gray')
   where
     gray' = h49 (n - 1)
+
+-- | (***) Huffman codes.
+--
+-- We suppose a set of symbols with their frequencies, given as a list of fr(S,F) terms. Example: [fr(a,45),fr(b,13),fr(c,12),fr(d,16),fr(e,9),fr(f,5)]. Our objective is to construct a list hc(S,C) terms, where C is the Huffman code word for the symbol S. In our example, the result could be Hs = [hc(a,'0'), hc(b,'101'), hc(c,'100'), hc(d,'111'), hc(e,'1101'), hc(f,'1100')] [hc(a,'01'),...etc.]. The task shall be performed by the predicate huffman/2 defined as follows:
+--
+-- % huffman(Fs,Hs) :- Hs is the Huffman code table for the frequency table Fs
+--
+-- Example:
+--
+-- >>> h50 [('a',45),('b',13),('c',12),('d',16),('e',9),('f',5)]
+-- [('a',"0"),('b',"101"),('c',"100"),('d',"111"),('e',"1101"),('f',"1100")]
+h50 :: [(Char, Natural)] -> [(Char, String)]
+h50 = map (second showBits) . sortOn fst . huffmanCode . toHuffmanTree
+  where
+    showBits :: [Bool] -> String
+    showBits = map $ \b -> if b then '1' else '0'
+
+type BinTree :: Type -> Type
+data BinTree a =
+    Leaf a
+  | Node (BinTree a) (BinTree a)
+  deriving stock (Show, Functor, Foldable)
+
+type HuffmanTree :: Type
+type HuffmanTree = BinTree Char
+
+frequency :: BinTree (Char, Natural) -> Natural
+frequency = getSum . foldMap (Sum . snd)
+
+toHuffmanTree :: [(Char, Natural)] -> HuffmanTree
+toHuffmanTree = fmap fst . head . fromJust . find isSingleton . iterate joinSmallestTwo . map Leaf
+
+joinSmallestTwo :: [BinTree (Char, Natural)] -> [BinTree (Char, Natural)]
+joinSmallestTwo ts =
+  case sortOn frequency ts of
+    [] -> []
+    [t] -> [t]
+    t1 : t2 : ts' -> Node t1 t2 : ts'
+
+isSingleton :: [a] -> Bool
+isSingleton [_] = True
+isSingleton _ = False
+
+huffmanCode :: HuffmanTree -> [(Char, [Bool])]
+huffmanCode = toList . label []
+  where
+    label :: [Bool] -> HuffmanTree -> BinTree (Char, [Bool])
+    label code (Leaf c) = Leaf (c, reverse code)
+    label code (Node t1 t2) = Node (label (False : code) t1) (label (True : code) t2)
