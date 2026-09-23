@@ -373,8 +373,8 @@ h26 n (x:xs) = map (x:) (h26 (n - 1) xs) ++ h26 n xs
 --
 -- Example:
 --
--- >>> head $ h27_1 ["aldo","beat","carla","david","evi","flip","gary","hugo","ida"]
--- (["aldo","beat"],["carla","david","evi"],["flip","gary","hugo","ida"])
+-- >>> h27_1 ["aldo","beat","carla","david","evi","flip","gary","hugo","ida"]
+-- [(["aldo","beat"],["carla","david","evi"],["flip","gary","hugo","ida"]),...
 -- >>> length $ h27_1 ["aldo","beat","carla","david","evi","flip","gary","hugo","ida"]
 -- 1260
 h27_1 :: [a] -> [([a], [a], [a])]
@@ -390,13 +390,13 @@ pick n (x:xs) = map (first (x:)) (pick (n - 1) xs) ++ map (second (x:)) (pick n 
 --
 -- Example:
 --
--- >>> head $ h27_2 [2,3,4] ["aldo","beat","carla","david","evi","flip","gary","hugo","ida"]
--- [["aldo","beat"],["carla","david","evi"],["flip","gary","hugo","ida"]]
+-- >>> h27_2 [2,3,4] ["aldo","beat","carla","david","evi","flip","gary","hugo","ida"]
+-- [[["aldo","beat"],["carla","david","evi"],["flip","gary","hugo","ida"]],...
 -- >>> length $ h27_2 [2,3,4] ["aldo","beat","carla","david","evi","flip","gary","hugo","ida"]
 -- 1260
 --
--- >>> head $ h27_2 [2,2,5] ["aldo","beat","carla","david","evi","flip","gary","hugo","ida"]
--- [["aldo","beat"],["carla","david"],["evi","flip","gary","hugo","ida"]]
+-- >>> h27_2 [2,2,5] ["aldo","beat","carla","david","evi","flip","gary","hugo","ida"]
+-- [[["aldo","beat"],["carla","david"],["evi","flip","gary","hugo","ida"]],...
 -- >>> length $ h27_2 [2,2,5] ["aldo","beat","carla","david","evi","flip","gary","hugo","ida"]
 -- 756
 --
