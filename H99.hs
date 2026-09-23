@@ -1,9 +1,3 @@
-{-# LANGUAGE DeriveFoldable #-}
-{-# LANGUAGE DeriveFunctor #-}
-{-# LANGUAGE DerivingStrategies #-}
-{-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE StandaloneKindSignatures #-}
-
 {-|
 Answers for <https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems H-99: Ninety-Nine Haskell Problems>. @doctest@ed.
 -}
