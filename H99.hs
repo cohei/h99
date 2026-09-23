@@ -56,8 +56,8 @@ import Control.Arrow ((&&&), first, second)
 import Control.Monad (join, replicateM)
 import Data.Foldable (toList)
 import Data.Kind (Type)
-import Data.List (group, unfoldr, sortOn, find)
-import Data.Maybe (listToMaybe, fromJust)
+import Data.List (group, unfoldr, sortOn)
+import Data.Maybe (listToMaybe)
 import Data.Monoid (Sum(Sum, getSum))
 import Data.Tuple (swap)
 import GHC.Exts (the)
@@ -679,7 +679,7 @@ frequency :: BinTree (Char, Natural) -> Natural
 frequency = getSum . foldMap (Sum . snd)
 
 toHuffmanTree :: [(Char, Natural)] -> HuffmanTree
-toHuffmanTree = fmap fst . head . fromJust . find isSingleton . iterate joinSmallestTwo . map Leaf
+toHuffmanTree = fmap fst . head . until isSingleton joinSmallestTwo . map Leaf
 
 joinSmallestTwo :: [BinTree (Char, Natural)] -> [BinTree (Char, Natural)]
 joinSmallestTwo ts =
