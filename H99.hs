@@ -3,53 +3,53 @@ Answers for <https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems H-99: N
 -}
 
 module H99
-  ( h1
-  , h2
-  , h3
-  , h4
-  , h5
-  , h6
-  , h7
-  , h8
-  , h9
-  , h10
-  , h11
-  , h12
-  , h13
-  , h14
-  , h15
-  , h16
-  , h17
-  , h18
-  , h19
-  , h20
-  , h21
-  , h22
-  , h23
-  , h24
-  , h25
-  , h26
-  , h27_1
-  , h27_2
-  , h28_1
-  , h28_2
-  , h31
-  , h32
-  , h33
-  , h34
-  , h35
-  , h36
-  , h37
-  , h38
-  , h39
-  , h40
-  , h41
-  , h41'
-  , h46
-  , h47
-  , h48
-  , h49
-  , h50
+  ( solution1
+  , solution2
+  , solution3
+  , solution4
+  , solution5
+  , solution6
+  , solution7
+  , solution8
+  , solution9
+  , solution10
+  , solution11
+  , solution12
+  , solution13
+  , solution14
+  , solution15
+  , solution16
+  , solution17
+  , solution18
+  , solution19
+  , solution20
+  , solution21
+  , solution22
+  , solution23
+  , solution24
+  , solution25
+  , solution26
+  , solution27_1
+  , solution27_2
+  , solution28_1
+  , solution28_2
+  , solution31
+  , solution32
+  , solution33
+  , solution34
+  , solution35
+  , solution36
+  , solution37
+  , solution38
+  , solution39
+  , solution40
+  , solution41
+  , solution41'
+  , solution46
+  , solution47
+  , solution48
+  , solution49
+  , solution50
   ) where
 
 import Control.Arrow ((&&&), first, second)
@@ -66,83 +66,83 @@ import System.Random (randomRIO)
 
 -- | Find the last element of a list.
 --
--- >>> h1 [1,2,3,4]
+-- >>> solution1 [1,2,3,4]
 -- 4
--- >>> h1 ['x','y','z']
+-- >>> solution1 ['x','y','z']
 -- 'z'
-h1 :: [a] -> a
-h1 = last
+solution1 :: [a] -> a
+solution1 = last
 
 -- | Find the last but one element of a list.
 --
--- >>> h2 [1,2,3,4]
+-- >>> solution2 [1,2,3,4]
 -- 3
--- >>> h2 ['a'..'z']
+-- >>> solution2 ['a'..'z']
 -- 'y'
-h2 :: [a] -> a
-h2 = last . init
+solution2 :: [a] -> a
+solution2 = last . init
 
 -- | Find the K'th element of a list.
 --
 -- The first element in the list is number 1.
 --
--- >>> h3 3 "abcde"
+-- >>> solution3 3 "abcde"
 -- 'c'
--- >>> h3 2 [1,2,3]
+-- >>> solution3 2 [1,2,3]
 -- 2
--- >>> h3 5 "haskell"
+-- >>> solution3 5 "haskell"
 -- 'e'
-h3 :: Int -> [a] -> a
-h3 = flip (!!) . subtract 1
+solution3 :: Int -> [a] -> a
+solution3 = flip (!!) . subtract 1
 
 -- | Find the number of elements of a list.
 --
--- >>> h4 [123, 456, 789]
+-- >>> solution4 [123, 456, 789]
 -- 3
--- >>> h4 "Hello, world!"
+-- >>> solution4 "Hello, world!"
 -- 13
-h4 :: [a] -> Int
-h4 = length
+solution4 :: [a] -> Int
+solution4 = length
 
 -- | Reverse a list.
 --
--- >>> h5 "A man, a plan, a canal, panama!"
+-- >>> solution5 "A man, a plan, a canal, panama!"
 -- "!amanap ,lanac a ,nalp a ,nam A"
--- >>> h5 [1,2,3,4]
+-- >>> solution5 [1,2,3,4]
 -- [4,3,2,1]
-h5 :: [a] -> [a]
-h5 = reverse
+solution5 :: [a] -> [a]
+solution5 = reverse
 
 -- | Find out whether a list is a palindrome.
 --
 -- A palindrome can be read forward or backward; e.g. (x a m a x).
 --
--- >>> h6 [1,2,3]
+-- >>> solution6 [1,2,3]
 -- False
--- >>> h6 "madamimadam"
+-- >>> solution6 "madamimadam"
 -- True
--- >>> h6 [1,2,4,8,16,8,4,2,1]
+-- >>> solution6 [1,2,4,8,16,8,4,2,1]
 -- True
-h6 :: Eq a => [a] -> Bool
-h6 []  = True
-h6 [_] = True
-h6 xs  = head xs == last xs && h6 (init (tail xs))
+solution6 :: Eq a => [a] -> Bool
+solution6 []  = True
+solution6 [_] = True
+solution6 xs  = head xs == last xs && solution6 (init (tail xs))
 
 -- | Flatten a nested list structure.
 --
 -- Transform a list, possibly holding lists as elements into a `flat' list by replacing each list with its elements (recursively).
 --
--- >>> h7 $ List [Elem 'a', List [Elem 'b', List [Elem 'c', Elem 'd'], Elem 'e']]
+-- >>> solution7 $ List [Elem 'a', List [Elem 'b', List [Elem 'c', Elem 'd'], Elem 'e']]
 -- "abcde"
--- >>> h7 $ Elem 5
+-- >>> solution7 $ Elem 5
 -- [5]
--- >>> h7 $ List [Elem 1, List [Elem 2, List [Elem 3, Elem 4], Elem 5]]
+-- >>> solution7 $ List [Elem 1, List [Elem 2, List [Elem 3, Elem 4], Elem 5]]
 -- [1,2,3,4,5]
--- >>> h7 $ List []
+-- >>> solution7 $ List []
 -- []
-h7 :: NestedList a -> [a]
-h7 (Elem x) = [x]
-h7 (List xs) = xs >>= h7
+solution7 :: NestedList a -> [a]
+solution7 (Elem x) = [x]
+solution7 (List xs) = xs >>= solution7
 
 -- | We have to define a new data type, because lists in Haskell are homogeneous.
 type NestedList :: Type -> Type
@@ -152,28 +152,28 @@ data NestedList a = Elem a | List [NestedList a]
 --
 -- If a list contains repeated elements they should be replaced with a single copy of the element. The order of the elements should not be changed.
 --
--- >>> h8 "aaaabccaadeeee"
+-- >>> solution8 "aaaabccaadeeee"
 -- "abcade"
-h8 :: Eq a => [a] -> [a]
-h8 = map the . group
+solution8 :: Eq a => [a] -> [a]
+solution8 = map the . group
 
 -- | Pack consecutive duplicates of list elements into sublists.
 --
 -- If a list contains repeated elements they should be placed in separate sublists.
 --
--- >>> h9 "aaaabccaadeeee"
+-- >>> solution9 "aaaabccaadeeee"
 -- ["aaaa","b","cc","aa","d","eeee"]
-h9 :: Eq a => [a] -> [[a]]
-h9 = group
+solution9 :: Eq a => [a] -> [[a]]
+solution9 = group
 
 -- | Run-length encoding of a list.
 --
 -- Use the result of problem P09 to implement the so-called run-length encoding data compression method. Consecutive duplicates of elements are encoded as lists (N E) where N is the number of duplicates of the element E.
 --
--- >>> h10 "aaaabccaadeeee"
+-- >>> solution10 "aaaabccaadeeee"
 -- [(4,'a'),(1,'b'),(2,'c'),(2,'a'),(1,'d'),(4,'e')]
-h10 :: Eq a => [a] -> [(Int, a)]
-h10 = map (length &&& the) . h9
+solution10 :: Eq a => [a] -> [(Int, a)]
+solution10 = map (length &&& the) . solution9
 
 -- | Run-length encoding, dealing one element as special case.
 type Encoded :: Type -> Type
@@ -184,10 +184,10 @@ data Encoded a = Single a | Multiple Int a
 --
 -- Modify the result of problem 10 in such a way that if an element has no duplicates it is simply copied into the result list. Only elements with duplicates are transferred as (N E) lists.
 --
--- >>> h11 "aaaabccaadeeee"
+-- >>> solution11 "aaaabccaadeeee"
 -- [Multiple 4 'a',Single 'b',Multiple 2 'c',Multiple 2 'a',Single 'd',Multiple 4 'e']
-h11 :: Eq a => [a] -> [Encoded a]
-h11 = map toEncoded . h10
+solution11 :: Eq a => [a] -> [Encoded a]
+solution11 = map toEncoded . solution10
   where
     toEncoded :: (Int, a) -> Encoded a
     toEncoded (1, x) = Single x
@@ -197,10 +197,10 @@ h11 = map toEncoded . h10
 --
 -- Given a run-length code list generated as specified in problem 11. Construct its uncompressed version.
 --
--- >>> h12 [Multiple 4 'a', Single 'b', Multiple 2 'c', Multiple 2 'a', Single 'd', Multiple 4 'e']
+-- >>> solution12 [Multiple 4 'a', Single 'b', Multiple 2 'c', Multiple 2 'a', Single 'd', Multiple 4 'e']
 -- "aaaabccaadeeee"
-h12 :: [Encoded a] -> [a]
-h12 = concatMap fromEncoded
+solution12 :: [Encoded a] -> [a]
+solution12 = concatMap fromEncoded
   where
     fromEncoded :: Encoded a -> [a]
     fromEncoded (Single x)     = [x]
@@ -210,10 +210,10 @@ h12 = concatMap fromEncoded
 --
 -- Implement the so-called run-length encoding data compression method directly. I.e. don't explicitly create the sublists containing the duplicates, as in problem 9, but only count them. As in problem P11, simplify the result list by replacing the singleton lists (1 X) by X.
 --
--- >>> h13 "aaaabccaadeeee"
+-- >>> solution13 "aaaabccaadeeee"
 -- [Multiple 4 'a',Single 'b',Multiple 2 'c',Multiple 2 'a',Single 'd',Multiple 4 'e']
-h13 :: Eq a => [a] -> [Encoded a]
-h13 = map toEncoded . group
+solution13 :: Eq a => [a] -> [Encoded a]
+solution13 = map toEncoded . group
   where
     toEncoded :: [a] -> Encoded a
     toEncoded []  = undefined
@@ -222,24 +222,24 @@ h13 = map toEncoded . group
 
 -- | Duplicate the elements of a list.
 --
--- >>> h14 [1, 2, 3]
+-- >>> solution14 [1, 2, 3]
 -- [1,1,2,2,3,3]
-h14 :: [a] -> [a]
-h14 = concatMap $ replicate 2
+solution14 :: [a] -> [a]
+solution14 = concatMap $ replicate 2
 
 -- | Replicate the elements of a list a given number of times.
 --
--- >>> h15 3 "abc"
+-- >>> solution15 3 "abc"
 -- "aaabbbccc"
-h15 :: Int -> [a] -> [a]
-h15 = concatMap . replicate
+solution15 :: Int -> [a] -> [a]
+solution15 = concatMap . replicate
 
 -- | Drop every N'th element from a list.
 --
--- >>> h16 3 "abcdefghik"
+-- >>> solution16 3 "abcdefghik"
 -- "abdeghk"
-h16 :: Int -> [a] -> [a]
-h16 n = concat . unfoldr step
+solution16 :: Int -> [a] -> [a]
+solution16 n = concat . unfoldr step
   where
     step :: [a] -> Maybe ([a], [a])
     step xs = if null xs then Nothing else Just (take (n - 1) xs, drop n xs)
@@ -248,85 +248,85 @@ h16 n = concat . unfoldr step
 --
 -- Do not use any predefined predicates.
 --
--- >>> h17 3 "abcdefghik"
+-- >>> solution17 3 "abcdefghik"
 -- ("abc","defghik")
-h17 :: Int -> [a] -> ([a], [a])
-h17 = splitAt
+solution17 :: Int -> [a] -> ([a], [a])
+solution17 = splitAt
 
 -- | Extract a slice from a list.
 --
 -- Given two indices, i and k, the slice is the list containing the elements between the i'th and k'th element of the original list (both limits included). Start counting the elements with 1.
 --
--- >>> h18 3 7 ['a','b','c','d','e','f','g','h','i','k']
+-- >>> solution18 3 7 ['a','b','c','d','e','f','g','h','i','k']
 -- "cdefg"
-h18 :: Int -> Int -> [a] -> [a]
-h18 i j = drop (i - 1) . take j
+solution18 :: Int -> Int -> [a] -> [a]
+solution18 i j = drop (i - 1) . take j
 
 -- | Rotate a list N places to the left.
 --
 -- Hint: Use the predefined functions length and (++).
 --
--- >>> h19 3 ['a','b','c','d','e','f','g','h']
+-- >>> solution19 3 ['a','b','c','d','e','f','g','h']
 -- "defghabc"
--- >>> h19 (-2) ['a','b','c','d','e','f','g','h']
+-- >>> solution19 (-2) ['a','b','c','d','e','f','g','h']
 -- "ghabcdef"
-h19 :: Int -> [a] -> [a]
-h19 n = join $ (uncurry (++) .) . (swap .) . splitAt . mod n . length
+solution19 :: Int -> [a] -> [a]
+solution19 n = join $ (uncurry (++) .) . (swap .) . splitAt . mod n . length
 
 -- | Remove the K'th element from a list.
 --
 -- (Note that this only returns the residue list, while the Prolog version also returns the deleted element.)
 --
--- >>> h20 2 "abcd"
+-- >>> solution20 2 "abcd"
 -- ('b',"acd")
-h20 :: Int -> [a] -> (a, [a])
-h20 n xs =
+solution20 :: Int -> [a] -> (a, [a])
+solution20 n xs =
   case splitAt (n - 1) xs of
     (_, []) -> error "out of bound"
     (ys, z:zs) -> (z , ys ++ zs)
 
 -- | Insert an element at a given position into a list.
 --
--- >>> h21 2 'X' "abcd"
+-- >>> solution21 2 'X' "abcd"
 -- "aXbcd"
-h21 :: Int -> a -> [a] -> [a]
-h21 _ _ []     = []
-h21 1 y xs     = y : xs
-h21 n y (x:xs) = x : h21 (n - 1) y xs
+solution21 :: Int -> a -> [a] -> [a]
+solution21 _ _ []     = []
+solution21 1 y xs     = y : xs
+solution21 n y (x:xs) = x : solution21 (n - 1) y xs
 
 -- | Create a list containing all integers within a given range.
 --
--- >>> h22 4 9
+-- >>> solution22 4 9
 -- [4,5,6,7,8,9]
-h22 :: Enum a => a -> a -> [a]
-h22 = enumFromTo
+solution22 :: Enum a => a -> a -> [a]
+solution22 = enumFromTo
 
 -- | Extract a given number of randomly selected elements from a list.
 --
--- >>> cs <- h23 3 "abcdefgh"
+-- >>> cs <- solution23 3 "abcdefgh"
 -- >>> length cs
 -- 3
 -- >>> all (\c -> c `elem` "abcdefgh") cs
 -- True
-h23 :: Int -> [a] -> IO [a]
-h23 n xs = replicateM n $ discreteUniform xs
+solution23 :: Int -> [a] -> IO [a]
+solution23 n xs = replicateM n $ discreteUniform xs
 
 discreteUniform :: [a] -> IO a
 discreteUniform xs = (xs !!) <$> randomRIO (0, length xs - 1)
 
 -- | Lotto: Draw N different random numbers from the set 1..M.
 --
--- >>> is <- h24 6 49
+-- >>> is <- solution24 6 49
 -- >>> import Data.List (nub)
 -- >>> length $ nub is
 -- 6
 -- >>> all (<= 49) is
 -- True
-h24 :: Int -> Int -> IO [Int]
-h24 n m = go []
+solution24 :: Int -> Int -> IO [Int]
+solution24 n m = go []
   where
     dist :: IO Int
-    dist = discreteUniform $ h22 1 m
+    dist = discreteUniform $ solution22 1 m
 
     go acc
       | length acc == n = return acc
@@ -339,12 +339,12 @@ h24 n m = go []
 -- | Generate a random permutation of the elements of a list.
 --
 -- >>> import Data.List (sort)
--- >>> p <- h25 "abcdef"
+-- >>> p <- solution25 "abcdef"
 -- >>> sort p == sort "abcdef"
 -- True
-h25 :: [a] -> IO [a]
-h25 xs = do
-  ns <- h24 n n
+solution25 :: [a] -> IO [a]
+solution25 xs = do
+  ns <- solution24 n n
   return $ zipWith ($) (map (flip (!!) . (subtract 1)) ns) $ repeat xs
   where
     n = length xs
@@ -353,13 +353,13 @@ h25 xs = do
 --
 -- In how many ways can a committee of 3 be chosen from a group of 12 people? We all know that there are C(12,3) = 220 possibilities (C(N,K) denotes the well-known binomial coefficients). For pure mathematicians, this result may be great. But we want to really generate all the possibilities in a list.
 --
--- >>> h26 3 "abcdef"
+-- >>> solution26 3 "abcdef"
 -- ["abc","abd","abe",...]
-h26 :: Int -> [a] -> [[a]]
-h26 _ [] = []
-h26 0 _ = [[]]
-h26 1 xs = map (:[]) xs
-h26 n (x:xs) = map (x:) (h26 (n - 1) xs) ++ h26 n xs
+solution26 :: Int -> [a] -> [[a]]
+solution26 _ [] = []
+solution26 0 _ = [[]]
+solution26 1 xs = map (:[]) xs
+solution26 n (x:xs) = map (x:) (solution26 (n - 1) xs) ++ solution26 n xs
 
 -- | Group the elements of a set into disjoint subsets.
 --
@@ -367,12 +367,12 @@ h26 n (x:xs) = map (x:) (h26 (n - 1) xs) ++ h26 n xs
 --
 -- Example:
 --
--- >>> h27_1 ["aldo","beat","carla","david","evi","flip","gary","hugo","ida"]
+-- >>> solution27_1 ["aldo","beat","carla","david","evi","flip","gary","hugo","ida"]
 -- [(["aldo","beat"],["carla","david","evi"],["flip","gary","hugo","ida"]),...
--- >>> length $ h27_1 ["aldo","beat","carla","david","evi","flip","gary","hugo","ida"]
+-- >>> length $ solution27_1 ["aldo","beat","carla","david","evi","flip","gary","hugo","ida"]
 -- 1260
-h27_1 :: [a] -> [([a], [a], [a])]
-h27_1 xs = [ (two, three, four) | (two, seven) <- pick 2 xs, (three, four) <- pick 3 seven ]
+solution27_1 :: [a] -> [([a], [a], [a])]
+solution27_1 xs = [ (two, three, four) | (two, seven) <- pick 2 xs, (three, four) <- pick 3 seven ]
 
 pick :: Int -> [a] -> [([a], [a])]
 pick _ [] = []
@@ -384,23 +384,23 @@ pick n (x:xs) = map (first (x:)) (pick (n - 1) xs) ++ map (second (x:)) (pick n 
 --
 -- Example:
 --
--- >>> h27_2 [2,3,4] ["aldo","beat","carla","david","evi","flip","gary","hugo","ida"]
+-- >>> solution27_2 [2,3,4] ["aldo","beat","carla","david","evi","flip","gary","hugo","ida"]
 -- [[["aldo","beat"],["carla","david","evi"],["flip","gary","hugo","ida"]],...
--- >>> length $ h27_2 [2,3,4] ["aldo","beat","carla","david","evi","flip","gary","hugo","ida"]
+-- >>> length $ solution27_2 [2,3,4] ["aldo","beat","carla","david","evi","flip","gary","hugo","ida"]
 -- 1260
 --
--- >>> h27_2 [2,2,5] ["aldo","beat","carla","david","evi","flip","gary","hugo","ida"]
+-- >>> solution27_2 [2,2,5] ["aldo","beat","carla","david","evi","flip","gary","hugo","ida"]
 -- [[["aldo","beat"],["carla","david"],["evi","flip","gary","hugo","ida"]],...
--- >>> length $ h27_2 [2,2,5] ["aldo","beat","carla","david","evi","flip","gary","hugo","ida"]
+-- >>> length $ solution27_2 [2,2,5] ["aldo","beat","carla","david","evi","flip","gary","hugo","ida"]
 -- 756
 --
 -- Note that we do not want permutations of the group members; i.e. @[["aldo","beat"],...]@ is the same solution as @[["beat","aldo"],...]@. However, we make a difference between @[["aldo","beat"],["carla","david"],...]@ and @[["carla","david"],["aldo","beat"],...]@.
 --
 -- You may find more about this combinatorial problem in a good book on discrete mathematics under the term "multinomial coefficients".
-h27_2 :: Eq a => [Int] -> [a] -> [[[a]]]
-h27_2 _ [] = [[]]
-h27_2 [] _ = [[]]
-h27_2 (n:ns) xs = [ ys : ts | (ys, zs) <- pick n xs, ts <- h27_2 ns zs ]
+solution27_2 :: Eq a => [Int] -> [a] -> [[[a]]]
+solution27_2 _ [] = [[]]
+solution27_2 [] _ = [[]]
+solution27_2 (n:ns) xs = [ ys : ts | (ys, zs) <- pick n xs, ts <- solution27_2 ns zs ]
 
 -- | Sorting a list of lists according to length of sublists.
 --
@@ -408,19 +408,19 @@ h27_2 (n:ns) xs = [ ys : ts | (ys, zs) <- pick n xs, ts <- h27_2 ns zs ]
 --
 -- Example:
 --
--- >>> h28_1 ["abc","de","fgh","de","ijkl","mn","o"]
+-- >>> solution28_1 ["abc","de","fgh","de","ijkl","mn","o"]
 -- ["o","de","de","mn","abc","fgh","ijkl"]
-h28_1 :: [[a]] -> [[a]]
-h28_1 = sortOn length
+solution28_1 :: [[a]] -> [[a]]
+solution28_1 = sortOn length
 
 -- | b) Again, we suppose that a list contains elements that are lists themselves. But this time the objective is to sort the elements of this list according to their length frequency; i.e., in the default, where sorting is done ascendingly, lists with rare lengths are placed first, others with a more frequent length come later.
 --
 -- Example:
 --
--- >>> h28_2 ["abc", "de", "fgh", "de", "ijkl", "mn", "o"]
+-- >>> solution28_2 ["abc", "de", "fgh", "de", "ijkl", "mn", "o"]
 -- ["ijkl","o","abc","fgh","de","de","mn"]
-h28_2 :: forall a. [[a]] -> [[a]]
-h28_2 xss = sortOn (length . sameLengthWith) xss
+solution28_2 :: forall a. [[a]] -> [[a]]
+solution28_2 xss = sortOn (length . sameLengthWith) xss
   where
     sameLengthWith :: [a] -> [[a]]
     sameLengthWith xs = filter ((length xs ==) . length) xss
@@ -429,29 +429,29 @@ h28_2 xss = sortOn (length . sameLengthWith) xss
 --
 -- Example:
 --
--- >>> h31 7
+-- >>> solution31 7
 -- True
-h31 :: Int -> Bool
-h31 n = not $ any (\i -> n `mod` i == 0) $ takeWhile (\i -> i * i <= n) [2..]
+solution31 :: Int -> Bool
+solution31 n = not $ any (\i -> n `mod` i == 0) $ takeWhile (\i -> i * i <= n) [2..]
 
 -- | Determine the greatest common divisor of two positive integer numbers. Use Euclid's algorithm.
 --
 -- Example:
 --
--- >>> [h32 36 63, h32 (-3) (-6), h32 (-3) 6]
+-- >>> [solution32 36 63, solution32 (-3) (-6), solution32 (-3) 6]
 -- [9,3,3]
-h32 :: Int -> Int -> Int
-h32 n 0 = abs n
-h32 n m = h32 m (n `mod` m)
+solution32 :: Int -> Int -> Int
+solution32 n 0 = abs n
+solution32 n m = solution32 m (n `mod` m)
 
 -- | Determine whether two positive integer numbers are coprime. Two numbers are coprime if their greatest common divisor equals 1.
 --
 -- Example:
 --
--- >>> h33 35 64
+-- >>> solution33 35 64
 -- True
-h33 :: Int -> Int -> Bool
-h33 n m = h32 n m == 1
+solution33 :: Int -> Int -> Bool
+solution33 n m = solution32 n m == 1
 
 -- | Calculate Euler's totient function phi(m).
 --
@@ -461,11 +461,11 @@ h33 n m = h32 n m == 1
 --
 -- Example:
 --
--- >>> h34 10
+-- >>> solution34 10
 -- 4
-h34 :: Int -> Int
-h34 1 = 1
-h34 n = length $ filter (h33 n) [1..n]
+solution34 :: Int -> Int
+solution34 1 = 1
+solution34 n = length $ filter (solution33 n) [1..n]
 
 -- | Determine the prime factors of a given positive integer.
 --
@@ -473,12 +473,12 @@ h34 n = length $ filter (h33 n) [1..n]
 --
 -- Example:
 --
--- >>> h35 315
+-- >>> solution35 315
 -- [3,3,5,7]
-h35 :: Int -> [Int]
-h35 n = case firstFactor n of
+solution35 :: Int -> [Int]
+solution35 n = case firstFactor n of
   Nothing -> [n]
-  Just (factor, next) -> factor : h35 next
+  Just (factor, next) -> factor : solution35 next
 
 firstFactor :: Int -> Maybe (Int, Int)
 firstFactor n = listToMaybe [ (m, d) | m <- candidates, let (d, r) = n `divMod` m, r == 0 ]
@@ -491,10 +491,10 @@ firstFactor n = listToMaybe [ (m, d) | m <- candidates, let (d, r) = n `divMod` 
 --
 -- Example:
 --
--- >>> h36 315
+-- >>> solution36 315
 -- [(3,2),(5,1),(7,1)]
-h36 :: Int -> [(Int, Int)]
-h36 = map swap . h10 . h35
+solution36 :: Int -> [(Int, Int)]
+solution36 = map swap . solution10 . solution35
 
 -- | Calculate Euler's totient function phi(m) (improved).
 --
@@ -510,19 +510,19 @@ h36 = map swap . h10 . h35
 --
 -- Example:
 --
--- >>> h37 10
+-- >>> solution37 10
 -- 4
-h37 :: Int -> Int
-h37 = product . map (\(p, m) -> (p - 1) * p ^ (m - 1)) . h36
+solution37 :: Int -> Int
+solution37 = product . map (\(p, m) -> (p - 1) * p ^ (m - 1)) . solution36
 
 -- | Compare the two methods of calculating Euler's totient function.
 --
 -- Use the solutions of problems 34 and 37 to compare the algorithms. Take the number of reductions as a measure for efficiency. Try to calculate phi(10090) as an example.
 --
--- >>> h38
+-- >>> solution38
 -- True
-h38 :: Bool
-h38 = h34 10090 == h37 10090
+solution38 :: Bool
+solution38 = solution34 10090 == solution37 10090
 
 -- | A list of prime numbers.
 --
@@ -530,11 +530,11 @@ h38 = h34 10090 == h37 10090
 --
 -- Example:
 --
--- >>> h39 10 20
+-- >>> solution39 10 20
 -- [11,13,17,19]
-h39 :: Int -> Int -> [Int]
--- h39 = _
-h39 n m = filter h31 [n..m]
+solution39 :: Int -> Int -> [Int]
+-- solution39 = _
+solution39 n m = filter solution31 [n..m]
 
 -- | (**) Goldbach's conjecture.
 --
@@ -542,14 +542,14 @@ h39 n m = filter h31 [n..m]
 --
 -- Example:
 --
--- >>> h40 28
+-- >>> solution40 28
 -- (5,23)
-h40 :: Int -> (Int, Int)
-h40 n
+solution40 :: Int -> (Int, Int)
+solution40 n
   | odd n = error "must be even"
   | otherwise =
     let
-      ps = h39 2 (n - 2)
+      ps = solution39 2 (n - 2)
     in
       head [ (p1, p2) | p1 <- ps, p2 <- ps, p1 <= p2, p1 + p2 == n ]
 
@@ -559,15 +559,15 @@ h40 n
 --
 -- Example:
 --
--- >>> h41 9 20
+-- >>> solution41 9 20
 -- [(3,7),(5,7),(3,11),(3,13),(5,13),(3,17)]
--- >>> h41' 4 2000 50
+-- >>> solution41' 4 2000 50
 -- [(73,919),(61,1321),(67,1789),(61,1867)]
-h41 :: Int -> Int -> [(Int, Int)]
-h41 n m = map h40 $ filter even [n..m]
+solution41 :: Int -> Int -> [(Int, Int)]
+solution41 n m = map solution40 $ filter even [n..m]
 
-h41' :: Int -> Int -> Int -> [(Int, Int)]
-h41' n m level = filter (\(p, q) -> p > level && q > level) $ h41 n m
+solution41' :: Int -> Int -> Int -> [(Int, Int)]
+solution41' n m level = filter (\(p, q) -> p > level && q > level) $ solution41 n m
 
 -- | (**) Define predicates and/2, or/2, nand/2, nor/2, xor/2, impl/2 and equ/2 (for logical equivalence) which succeed or fail according to the result of their respective operations; e.g. and(A,B) will succeed, if and only if both A and B succeed.
 --
@@ -578,13 +578,13 @@ h41' n m level = filter (\(p, q) -> p > level && q > level) $ h41 n m
 -- Example:
 --
 -- >>> infixr 3 `and'` ; infixr 2 `or'` ; and', or' :: Bool -> Bool -> Bool ; and' = (&&) ; or' = (||)
--- >>> h46 (\a b -> (and' a (or' a b)))
+-- >>> solution46 (\a b -> (and' a (or' a b)))
 -- True True True
 -- True False True
 -- False True False
 -- False False False
-h46 :: (Bool -> Bool -> Bool) -> IO ()
-h46 f = mapM_ (\(b1, b2, b) -> putStrLn $ unwords $ map show [b1, b2, b]) $ (\b1 b2 -> (b1, b2, f b1 b2)) <$> booleans <*> booleans
+solution46 :: (Bool -> Bool -> Bool) -> IO ()
+solution46 f = mapM_ (\(b1, b2, b) -> putStrLn $ unwords $ map show [b1, b2, b]) $ (\b1 b2 -> (b1, b2, f b1 b2)) <$> booleans <*> booleans
   where
     booleans = [True, False]
 
@@ -595,13 +595,13 @@ h46 f = mapM_ (\(b1, b2, b) -> putStrLn $ unwords $ map show [b1, b2, b]) $ (\b1
 -- Example:
 --
 -- >>> infixr 3 `and'` ; infixr 2 `or'` ; and', or' :: Bool -> Bool -> Bool ; and' = (&&) ; or' = (||)
--- >>> h47 (\a b -> a `and'` (a `or'` not b))
+-- >>> solution47 (\a b -> a `and'` (a `or'` not b))
 -- True True True
 -- True False True
 -- False True False
 -- False False False
-h47 :: (Bool -> Bool -> Bool) -> IO ()
-h47 = h46
+solution47 :: (Bool -> Bool -> Bool) -> IO ()
+solution47 = solution46
 
 -- | (**) Truth tables for logical expressions (3).
 --
@@ -611,7 +611,7 @@ h47 = h46
 --
 -- >>> infixr 3 `and'` ; infixr 2 `or'` ; and', or' :: Bool -> Bool -> Bool ; and' = (&&) ; or' = (||)
 -- >>> infix 1 `equ'` ; equ' :: Bool -> Bool -> Bool ; equ' = (==)
--- >>> h48 3 (\[a,b,c] -> a `and'` (b `or'` c) `equ'` a `and'` b `or'` a `and'` c)
+-- >>> solution48 3 (\[a,b,c] -> a `and'` (b `or'` c) `equ'` a `and'` b `or'` a `and'` c)
 -- True  True  True  True
 -- True  True  False True
 -- True  False True  True
@@ -620,8 +620,8 @@ h47 = h46
 -- False True  False True
 -- False False True  True
 -- False False False True
-h48 :: Int -> ([Bool] -> Bool) -> IO ()
-h48 n f = mapM_ (putStrLn . unwords . map show') $ [ bs ++ [f bs] | bs <- replicateM n booleans ]
+solution48 :: Int -> ([Bool] -> Bool) -> IO ()
+solution48 n f = mapM_ (putStrLn . unwords . map show') $ [ bs ++ [f bs] | bs <- replicateM n booleans ]
   where
     booleans = [True, False]
 
@@ -642,13 +642,13 @@ h48 n f = mapM_ (putStrLn . unwords . map show') $ [ bs ++ [f bs] | bs <- replic
 --
 -- Example:
 --
--- >>> h49 3
+-- >>> solution49 3
 -- ["000","001","011","010","110","111","101","100"]
-h49 :: Int -> [String]
-h49 1 = ["0", "1"]
-h49 n = map ('0' :) gray' ++ map ('1' :) (reverse gray')
+solution49 :: Int -> [String]
+solution49 1 = ["0", "1"]
+solution49 n = map ('0' :) gray' ++ map ('1' :) (reverse gray')
   where
-    gray' = h49 (n - 1)
+    gray' = solution49 (n - 1)
 
 -- | (***) Huffman codes.
 --
@@ -658,10 +658,10 @@ h49 n = map ('0' :) gray' ++ map ('1' :) (reverse gray')
 --
 -- Example:
 --
--- >>> h50 [('a',45),('b',13),('c',12),('d',16),('e',9),('f',5)]
+-- >>> solution50 [('a',45),('b',13),('c',12),('d',16),('e',9),('f',5)]
 -- [('a',"0"),('b',"101"),('c',"100"),('d',"111"),('e',"1101"),('f',"1100")]
-h50 :: [(Char, Natural)] -> [(Char, String)]
-h50 = map (second showBits) . sortOn fst . huffmanCode . toHuffmanTree
+solution50 :: [(Char, Natural)] -> [(Char, String)]
+solution50 = map (second showBits) . sortOn fst . huffmanCode . toHuffmanTree
   where
     showBits :: [Bool] -> String
     showBits = map $ \b -> if b then '1' else '0'
