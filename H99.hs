@@ -57,6 +57,8 @@ import Control.Monad (join, replicateM)
 import Data.Foldable (toList)
 import Data.Kind (Type)
 import Data.List (group, unfoldr, sortOn)
+import Data.List.NonEmpty (NonEmpty((:|)), nonEmpty)
+import Data.List.NonEmpty qualified as NonEmpty
 import Data.Maybe (listToMaybe)
 import Data.Monoid (Sum(Sum, getSum))
 import Data.Tuple (swap)
@@ -126,7 +128,7 @@ solution5 = reverse
 solution6 :: Eq a => [a] -> Bool
 solution6 []  = True
 solution6 [_] = True
-solution6 xs  = head xs == last xs && solution6 (init (tail xs))
+solution6 (x : xs)  = x == last xs && solution6 (init xs)
 
 -- | Flatten a nested list structure.
 --
@@ -212,13 +214,13 @@ solution12 = concatMap fromEncoded
 --
 -- >>> solution13 "aaaabccaadeeee"
 -- [Multiple 4 'a',Single 'b',Multiple 2 'c',Multiple 2 'a',Single 'd',Multiple 4 'e']
-solution13 :: Eq a => [a] -> [Encoded a]
+solution13 :: forall a. (Eq a) => [a] -> [Encoded a]
 solution13 = map toEncoded . group
   where
     toEncoded :: [a] -> Encoded a
     toEncoded []  = undefined
     toEncoded [x] = Single x
-    toEncoded xs  = Multiple (length xs) (head xs)
+    toEncoded xs  = Multiple (length xs) (the xs)
 
 -- | Duplicate the elements of a list.
 --
@@ -551,7 +553,9 @@ solution40 n
     let
       ps = solution39 2 (n - 2)
     in
-      head [ (p1, p2) | p1 <- ps, p2 <- ps, p1 <= p2, p1 + p2 == n ]
+      case [ (p1, p2) | p1 <- ps, p2 <- ps, p1 <= p2, p1 + p2 == n ] of
+        [] -> error "counterexample to Goldbach's conjecture"
+        pair : _ -> pair
 
 -- | Given a range of integers by its lower and upper limit, print a list of all even numbers and their Goldbach composition.
 --
@@ -661,7 +665,7 @@ solution49 n = map ('0' :) gray' ++ map ('1' :) (reverse gray')
 -- >>> solution50 [('a',45),('b',13),('c',12),('d',16),('e',9),('f',5)]
 -- [('a',"0"),('b',"101"),('c',"100"),('d',"111"),('e',"1101"),('f',"1100")]
 solution50 :: [(Char, Natural)] -> [(Char, String)]
-solution50 = map (second showBits) . sortOn fst . huffmanCode . toHuffmanTree
+solution50 = maybe [] (map (second showBits) . sortOn fst . huffmanCode . toHuffmanTree) . nonEmpty
   where
     showBits :: [Bool] -> String
     showBits = map $ \b -> if b then '1' else '0'
@@ -678,18 +682,17 @@ type HuffmanTree = BinTree Char
 frequency :: BinTree (Char, Natural) -> Natural
 frequency = getSum . foldMap (Sum . snd)
 
-toHuffmanTree :: [(Char, Natural)] -> HuffmanTree
-toHuffmanTree = fmap fst . head . until isSingleton joinSmallestTwo . map Leaf
+toHuffmanTree :: NonEmpty (Char, Natural) -> HuffmanTree
+toHuffmanTree = fmap fst . NonEmpty.head . until isSingleton joinSmallestTwo . fmap Leaf
 
-joinSmallestTwo :: [BinTree (Char, Natural)] -> [BinTree (Char, Natural)]
+joinSmallestTwo :: NonEmpty (BinTree (Char, Natural)) -> NonEmpty (BinTree (Char, Natural))
 joinSmallestTwo ts =
-  case sortOn frequency ts of
-    [] -> []
-    [t] -> [t]
-    t1 : t2 : ts' -> Node t1 t2 : ts'
+  case NonEmpty.sortWith frequency ts of
+    t1 :| t2 : ts' -> Node t1 t2 :| ts'
+    sorted -> sorted
 
-isSingleton :: [a] -> Bool
-isSingleton [_] = True
+isSingleton :: NonEmpty a -> Bool
+isSingleton (_ :| []) = True
 isSingleton _ = False
 
 huffmanCode :: HuffmanTree -> [(Char, [Bool])]
