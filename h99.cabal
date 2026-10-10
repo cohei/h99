@@ -31,6 +31,7 @@ library
   exposed-modules:
     H99
     H99.Problem1
+    H99.Problem2
   build-depends:       random
   ghc-options:
     -Wall

@@ -67,15 +67,7 @@ import Numeric.Natural (Natural)
 import System.Random (randomRIO)
 
 import H99.Problem1 (solution1)
-
--- | Find the last but one element of a list.
---
--- >>> solution2 [1,2,3,4]
--- 3
--- >>> solution2 ['a'..'z']
--- 'y'
-solution2 :: [a] -> a
-solution2 = last . init
+import H99.Problem2 (solution2)
 
 -- | Find the K'th element of a list.
 --
