@@ -66,14 +66,7 @@ import GHC.Exts (the)
 import Numeric.Natural (Natural)
 import System.Random (randomRIO)
 
--- | Find the last element of a list.
---
--- >>> solution1 [1,2,3,4]
--- 4
--- >>> solution1 ['x','y','z']
--- 'z'
-solution1 :: [a] -> a
-solution1 = last
+import H99.Problem1 (solution1)
 
 -- | Find the last but one element of a list.
 --

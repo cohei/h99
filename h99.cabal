@@ -28,7 +28,9 @@ common common
 
 library
   import:              common
-  exposed-modules:     H99
+  exposed-modules:
+    H99
+    H99.Problem1
   build-depends:       random
   ghc-options:
     -Wall
