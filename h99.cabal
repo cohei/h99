@@ -73,6 +73,7 @@ library
     H99.Problem46
     H99.Problem47
     H99.Problem48
+    H99.Problem49
     H99.Sampling
   build-depends:       random
   ghc-options:
