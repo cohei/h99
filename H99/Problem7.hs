@@ -1,11 +1,11 @@
-module H99.Problem7 (solution7) where
+module H99.Problem7 (solution7, NestedList(..)) where
 
 import Data.Foldable (Foldable(toList))
 import Data.Kind (Type)
 
 -- | Flatten a nested list structure.
 --
--- Transform a list, possibly holding lists as elements into a `flat' list by replacing each list with its elements (recursively).
+-- Transform a list, possibly holding lists as elements into a \`flat\' list by replacing each list with its elements (recursively).
 --
 -- >>> solution7 $ List [Elem 'a', List [Elem 'b', List [Elem 'c', Elem 'd'], Elem 'e']]
 -- "abcde"
