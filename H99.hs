@@ -63,7 +63,6 @@ import Data.Maybe (listToMaybe)
 import Data.Monoid (Sum(Sum, getSum))
 import Data.Tuple (swap)
 import Numeric.Natural (Natural)
-import System.Random (randomRIO)
 
 import H99.Problem1 (solution1)
 import H99.Problem2 (solution2)
@@ -87,19 +86,8 @@ import H99.Problem19 (solution19)
 import H99.Problem20 (solution20)
 import H99.Problem21 (solution21)
 import H99.Problem22 (solution22)
-
--- | Extract a given number of randomly selected elements from a list.
---
--- >>> cs <- solution23 3 "abcdefgh"
--- >>> length cs
--- 3
--- >>> all (\c -> c `elem` "abcdefgh") cs
--- True
-solution23 :: Int -> [a] -> IO [a]
-solution23 n xs = replicateM n $ discreteUniform xs
-
-discreteUniform :: [a] -> IO a
-discreteUniform xs = (xs !!) <$> randomRIO (0, length xs - 1)
+import H99.Problem23 (solution23)
+import H99.Sampling (discreteUniform)
 
 -- | Lotto: Draw N different random numbers from the set 1..M.
 --
