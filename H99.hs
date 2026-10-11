@@ -59,7 +59,6 @@ import Data.Kind (Type)
 import Data.List (sortOn)
 import Data.List.NonEmpty (NonEmpty((:|)), nonEmpty)
 import Data.List.NonEmpty qualified as NonEmpty
-import Data.Maybe (listToMaybe)
 import Data.Monoid (Sum(Sum, getSum))
 import Data.Tuple (swap)
 import Numeric.Natural (Natural)
@@ -96,24 +95,7 @@ import H99.Problem31 (solution31)
 import H99.Problem32 (solution32)
 import H99.Problem33 (solution33)
 import H99.Problem34 (solution34)
-
--- | Determine the prime factors of a given positive integer.
---
--- Construct a flat list containing the prime factors in ascending order.
---
--- Example:
---
--- >>> solution35 315
--- [3,3,5,7]
-solution35 :: Int -> [Int]
-solution35 n = case firstFactor n of
-  Nothing -> [n]
-  Just (factor, next) -> factor : solution35 next
-
-firstFactor :: Int -> Maybe (Int, Int)
-firstFactor n = listToMaybe [ (m, d) | m <- candidates, let (d, r) = n `divMod` m, r == 0 ]
-  where
-    candidates = takeWhile (\m -> m * m <= n) [2..]
+import H99.Problem35 (solution35)
 
 -- | Determine the prime factors of a given positive integer.
 --
