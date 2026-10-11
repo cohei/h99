@@ -1,9 +1,5 @@
 packages: .
 
--- for doctest
-test-show-details: streaming
-write-ghc-environment-files: always
-
 haddock-hyperlink-source: True
 haddock-quickjump: True
 haddock-html-location: https://hackage.haskell.org/package/$pkg-$version/docs

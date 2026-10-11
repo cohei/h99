@@ -11,6 +11,12 @@ author:              TANIGUCHI Kohei
 maintainer:          a.d.xvii.kal.mai@gmail.com
 copyright:           2016 TANIGUCHI Kohei
 extra-doc-files:     README.md
+build-type:          Custom
+
+custom-setup
+  setup-depends:
+    base < 5,
+    cabal-doctest >= 1.0.13 && < 1.1
 
 source-repository head
   type:     git
@@ -50,3 +56,6 @@ test-suite doctest
   import:              common
   main-is:             doctest.hs
   build-depends:       doctest
+  -- cabal-doctest passes default-extensions to doctest as -X flags, but not default-language
+  -- --no-magic stops doctest from expanding the module name H99 into the files under the H99 directory
+  x-doctest-options:   --no-magic -XGHC2024

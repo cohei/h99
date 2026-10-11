@@ -1,6 +1,7 @@
 module Main (main) where
 
+import Build_doctests (flags, module_sources, pkgs)
 import Test.DocTest (doctest)
 
 main :: IO ()
-main = doctest ["-XGHC2024", "H99.hs"]
+main = doctest (flags ++ pkgs ++ module_sources)
