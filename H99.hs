@@ -88,19 +88,7 @@ import H99.Problem21 (solution21)
 import H99.Problem22 (solution22)
 import H99.Problem23 (solution23)
 import H99.Problem24 (solution24)
-
--- | Generate a random permutation of the elements of a list.
---
--- >>> import Data.List (sort)
--- >>> p <- solution25 "abcdef"
--- >>> sort p == sort "abcdef"
--- True
-solution25 :: [a] -> IO [a]
-solution25 xs = do
-  ns <- solution24 n n
-  return $ zipWith ($) (map (flip (!!) . (subtract 1)) ns) $ repeat xs
-  where
-    n = length xs
+import H99.Problem25 (solution25)
 
 -- | Generate the combinations of K distinct objects chosen from the N elements of a list.
 --
