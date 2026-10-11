@@ -86,13 +86,7 @@ import H99.Problem18 (solution18)
 import H99.Problem19 (solution19)
 import H99.Problem20 (solution20)
 import H99.Problem21 (solution21)
-
--- | Create a list containing all integers within a given range.
---
--- >>> solution22 4 9
--- [4,5,6,7,8,9]
-solution22 :: Enum a => a -> a -> [a]
-solution22 = enumFromTo
+import H99.Problem22 (solution22)
 
 -- | Extract a given number of randomly selected elements from a list.
 --
