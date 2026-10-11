@@ -93,16 +93,7 @@ import H99.Problem26 (solution26)
 import H99.Problem27 (solution27_1, solution27_2)
 import H99.Problem28 (solution28_1, solution28_2)
 import H99.Problem31 (solution31)
-
--- | Determine the greatest common divisor of two positive integer numbers. Use Euclid's algorithm.
---
--- Example:
---
--- >>> [solution32 36 63, solution32 (-3) (-6), solution32 (-3) 6]
--- [9,3,3]
-solution32 :: Int -> Int -> Int
-solution32 n 0 = abs n
-solution32 n m = solution32 m (n `mod` m)
+import H99.Problem32 (solution32)
 
 -- | Determine whether two positive integer numbers are coprime. Two numbers are coprime if their greatest common divisor equals 1.
 --
