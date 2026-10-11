@@ -1,5 +1,6 @@
 module H99.Problem7 (solution7) where
 
+import Data.Foldable (Foldable(toList))
 import Data.Kind (Type)
 
 -- | Flatten a nested list structure.
@@ -15,9 +16,9 @@ import Data.Kind (Type)
 -- >>> solution7 $ List []
 -- []
 solution7 :: NestedList a -> [a]
-solution7 (Elem x) = [x]
-solution7 (List xs) = xs >>= solution7
+solution7 = toList
 
 -- | We have to define a new data type, because lists in Haskell are homogeneous.
 type NestedList :: Type -> Type
 data NestedList a = Elem a | List [NestedList a]
+  deriving stock (Foldable)
