@@ -28,6 +28,7 @@ common common
 
 library
   import:              common
+  hs-source-dirs:      src
   exposed-modules:
     H99
     H99.Encoded
@@ -101,6 +102,7 @@ library
 
 test-suite doctest
   import:              common
+  hs-source-dirs:      test
   main-is:             doctest.hs
   build-depends:       doctest
   -- cabal-doctest passes default-extensions to doctest as -X flags, but not default-language
