@@ -52,7 +52,7 @@ module H99
   , solution50
   ) where
 
-import Control.Arrow ((&&&), first, second)
+import Control.Arrow (first, second)
 import Control.Monad (join, replicateM)
 import Data.Foldable (toList)
 import Data.Kind (Type)
@@ -75,15 +75,7 @@ import H99.Problem6 (solution6)
 import H99.Problem7 (solution7)
 import H99.Problem8 (solution8)
 import H99.Problem9 (solution9)
-
--- | Run-length encoding of a list.
---
--- Use the result of problem P09 to implement the so-called run-length encoding data compression method. Consecutive duplicates of elements are encoded as lists (N E) where N is the number of duplicates of the element E.
---
--- >>> solution10 "aaaabccaadeeee"
--- [(4,'a'),(1,'b'),(2,'c'),(2,'a'),(1,'d'),(4,'e')]
-solution10 :: Eq a => [a] -> [(Int, a)]
-solution10 = map (length &&& the) . solution9
+import H99.Problem10 (solution10)
 
 -- | Run-length encoding, dealing one element as special case.
 type Encoded :: Type -> Type
