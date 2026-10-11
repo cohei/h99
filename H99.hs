@@ -60,7 +60,6 @@ import Data.List (sortOn)
 import Data.List.NonEmpty (NonEmpty((:|)), nonEmpty)
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Monoid (Sum(Sum, getSum))
-import Data.Tuple (swap)
 import Numeric.Natural (Natural)
 
 import H99.Problem1 (solution1)
@@ -96,17 +95,7 @@ import H99.Problem32 (solution32)
 import H99.Problem33 (solution33)
 import H99.Problem34 (solution34)
 import H99.Problem35 (solution35)
-
--- | Determine the prime factors of a given positive integer.
---
--- Construct a list containing the prime factors and their multiplicity.
---
--- Example:
---
--- >>> solution36 315
--- [(3,2),(5,1),(7,1)]
-solution36 :: Int -> [(Int, Int)]
-solution36 = map swap . solution10 . solution35
+import H99.Problem36 (solution36)
 
 -- | Calculate Euler's totient function phi(m) (improved).
 --
