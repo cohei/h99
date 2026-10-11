@@ -94,15 +94,7 @@ import H99.Problem27 (solution27_1, solution27_2)
 import H99.Problem28 (solution28_1, solution28_2)
 import H99.Problem31 (solution31)
 import H99.Problem32 (solution32)
-
--- | Determine whether two positive integer numbers are coprime. Two numbers are coprime if their greatest common divisor equals 1.
---
--- Example:
---
--- >>> solution33 35 64
--- True
-solution33 :: Int -> Int -> Bool
-solution33 n m = solution32 n m == 1
+import H99.Problem33 (solution33)
 
 -- | Calculate Euler's totient function phi(m).
 --
