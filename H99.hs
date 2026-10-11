@@ -56,7 +56,7 @@ import Control.Arrow (first, second)
 import Control.Monad (join, replicateM)
 import Data.Foldable (toList)
 import Data.Kind (Type)
-import Data.List (unfoldr, sortOn)
+import Data.List (sortOn)
 import Data.List.NonEmpty (NonEmpty((:|)), nonEmpty)
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Maybe (listToMaybe)
@@ -80,16 +80,7 @@ import H99.Problem12 (solution12)
 import H99.Problem13 (solution13)
 import H99.Problem14 (solution14)
 import H99.Problem15 (solution15)
-
--- | Drop every N'th element from a list.
---
--- >>> solution16 3 "abcdefghik"
--- "abdeghk"
-solution16 :: Int -> [a] -> [a]
-solution16 n = concat . unfoldr step
-  where
-    step :: [a] -> Maybe ([a], [a])
-    step xs = if null xs then Nothing else Just (take (n - 1) xs, drop n xs)
+import H99.Problem16 (solution16)
 
 -- | Split a list into two parts; the length of the first part is given.
 --
