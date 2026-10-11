@@ -79,13 +79,7 @@ import H99.Problem11 (solution11)
 import H99.Problem12 (solution12)
 import H99.Problem13 (solution13)
 import H99.Problem14 (solution14)
-
--- | Replicate the elements of a list a given number of times.
---
--- >>> solution15 3 "abc"
--- "aaabbbccc"
-solution15 :: Int -> [a] -> [a]
-solution15 = concatMap . replicate
+import H99.Problem15 (solution15)
 
 -- | Drop every N'th element from a list.
 --
