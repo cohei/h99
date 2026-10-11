@@ -70,15 +70,7 @@ import H99.Problem1 (solution1)
 import H99.Problem2 (solution2)
 import H99.Problem3 (solution3)
 import H99.Problem4 (solution4)
-
--- | Reverse a list.
---
--- >>> solution5 "A man, a plan, a canal, panama!"
--- "!amanap ,lanac a ,nalp a ,nam A"
--- >>> solution5 [1,2,3,4]
--- [4,3,2,1]
-solution5 :: [a] -> [a]
-solution5 = reverse
+import H99.Problem5 (solution5)
 
 -- | Find out whether a list is a palindrome.
 --
