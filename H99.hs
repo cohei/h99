@@ -66,6 +66,7 @@ import GHC.Exts (the)
 import Numeric.Natural (Natural)
 import System.Random (randomRIO)
 
+import H99.Encoded (Encoded(Single, Multiple))
 import H99.Problem1 (solution1)
 import H99.Problem2 (solution2)
 import H99.Problem3 (solution3)
@@ -76,24 +77,7 @@ import H99.Problem7 (solution7)
 import H99.Problem8 (solution8)
 import H99.Problem9 (solution9)
 import H99.Problem10 (solution10)
-
--- | Run-length encoding, dealing one element as special case.
-type Encoded :: Type -> Type
-data Encoded a = Single a | Multiple Int a
-  deriving stock Show
-
--- | Modified run-length encoding.
---
--- Modify the result of problem 10 in such a way that if an element has no duplicates it is simply copied into the result list. Only elements with duplicates are transferred as (N E) lists.
---
--- >>> solution11 "aaaabccaadeeee"
--- [Multiple 4 'a',Single 'b',Multiple 2 'c',Multiple 2 'a',Single 'd',Multiple 4 'e']
-solution11 :: Eq a => [a] -> [Encoded a]
-solution11 = map toEncoded . solution10
-  where
-    toEncoded :: (Int, a) -> Encoded a
-    toEncoded (1, x) = Single x
-    toEncoded (n, x) = Multiple n x
+import H99.Problem11 (solution11)
 
 -- | Decode a run-length encoded list.
 --

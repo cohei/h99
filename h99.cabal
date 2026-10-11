@@ -30,6 +30,7 @@ library
   import:              common
   exposed-modules:
     H99
+    H99.Encoded
     H99.Problem1
     H99.Problem2
     H99.Problem3
@@ -40,6 +41,7 @@ library
     H99.Problem8
     H99.Problem9
     H99.Problem10
+    H99.Problem11
   build-depends:       random
   ghc-options:
     -Wall
