@@ -50,6 +50,7 @@ library
     H99.Problem17
     H99.Problem18
     H99.Problem19
+    H99.Problem20
   build-depends:       random
   ghc-options:
     -Wall

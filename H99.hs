@@ -84,18 +84,7 @@ import H99.Problem16 (solution16)
 import H99.Problem17 (solution17)
 import H99.Problem18 (solution18)
 import H99.Problem19 (solution19)
-
--- | Remove the K'th element from a list.
---
--- (Note that this only returns the residue list, while the Prolog version also returns the deleted element.)
---
--- >>> solution20 2 "abcd"
--- ('b',"acd")
-solution20 :: Int -> [a] -> (a, [a])
-solution20 n xs =
-  case splitAt (n - 1) xs of
-    (_, []) -> error "out of bound"
-    (ys, z:zs) -> (z , ys ++ zs)
+import H99.Problem20 (solution20)
 
 -- | Insert an element at a given position into a list.
 --
