@@ -92,15 +92,7 @@ import H99.Problem25 (solution25)
 import H99.Problem26 (solution26)
 import H99.Problem27 (solution27_1, solution27_2)
 import H99.Problem28 (solution28_1, solution28_2)
-
--- | Determine whether a given integer number is prime.
---
--- Example:
---
--- >>> solution31 7
--- True
-solution31 :: Int -> Bool
-solution31 n = not $ any (\i -> n `mod` i == 0) $ takeWhile (\i -> i * i <= n) [2..]
+import H99.Problem31 (solution31)
 
 -- | Determine the greatest common divisor of two positive integer numbers. Use Euclid's algorithm.
 --
