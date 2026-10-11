@@ -69,15 +69,7 @@ import System.Random (randomRIO)
 import H99.Problem1 (solution1)
 import H99.Problem2 (solution2)
 import H99.Problem3 (solution3)
-
--- | Find the number of elements of a list.
---
--- >>> solution4 [123, 456, 789]
--- 3
--- >>> solution4 "Hello, world!"
--- 13
-solution4 :: [a] -> Int
-solution4 = length
+import H99.Problem4 (solution4)
 
 -- | Reverse a list.
 --
