@@ -81,15 +81,7 @@ import H99.Problem13 (solution13)
 import H99.Problem14 (solution14)
 import H99.Problem15 (solution15)
 import H99.Problem16 (solution16)
-
--- | Split a list into two parts; the length of the first part is given.
---
--- Do not use any predefined predicates.
---
--- >>> solution17 3 "abcdefghik"
--- ("abc","defghik")
-solution17 :: Int -> [a] -> ([a], [a])
-solution17 = splitAt
+import H99.Problem17 (solution17)
 
 -- | Extract a slice from a list.
 --
