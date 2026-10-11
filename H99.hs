@@ -73,15 +73,7 @@ import H99.Problem4 (solution4)
 import H99.Problem5 (solution5)
 import H99.Problem6 (solution6)
 import H99.Problem7 (solution7)
-
--- | Eliminate consecutive duplicates of list elements.
---
--- If a list contains repeated elements they should be replaced with a single copy of the element. The order of the elements should not be changed.
---
--- >>> solution8 "aaaabccaadeeee"
--- "abcade"
-solution8 :: Eq a => [a] -> [a]
-solution8 = map the . group
+import H99.Problem8 (solution8)
 
 -- | Pack consecutive duplicates of list elements into sublists.
 --
