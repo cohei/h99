@@ -56,17 +56,15 @@ import Control.Arrow (first, second)
 import Control.Monad (join, replicateM)
 import Data.Foldable (toList)
 import Data.Kind (Type)
-import Data.List (group, unfoldr, sortOn)
+import Data.List (unfoldr, sortOn)
 import Data.List.NonEmpty (NonEmpty((:|)), nonEmpty)
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Maybe (listToMaybe)
 import Data.Monoid (Sum(Sum, getSum))
 import Data.Tuple (swap)
-import GHC.Exts (the)
 import Numeric.Natural (Natural)
 import System.Random (randomRIO)
 
-import H99.Encoded (Encoded(Single, Multiple))
 import H99.Problem1 (solution1)
 import H99.Problem2 (solution2)
 import H99.Problem3 (solution3)
@@ -79,20 +77,7 @@ import H99.Problem9 (solution9)
 import H99.Problem10 (solution10)
 import H99.Problem11 (solution11)
 import H99.Problem12 (solution12)
-
--- | Run-length encoding of a list (direct solution).
---
--- Implement the so-called run-length encoding data compression method directly. I.e. don't explicitly create the sublists containing the duplicates, as in problem 9, but only count them. As in problem P11, simplify the result list by replacing the singleton lists (1 X) by X.
---
--- >>> solution13 "aaaabccaadeeee"
--- [Multiple 4 'a',Single 'b',Multiple 2 'c',Multiple 2 'a',Single 'd',Multiple 4 'e']
-solution13 :: forall a. (Eq a) => [a] -> [Encoded a]
-solution13 = map toEncoded . group
-  where
-    toEncoded :: [a] -> Encoded a
-    toEncoded []  = undefined
-    toEncoded [x] = Single x
-    toEncoded xs  = Multiple (length xs) (the xs)
+import H99.Problem13 (solution13)
 
 -- | Duplicate the elements of a list.
 --
