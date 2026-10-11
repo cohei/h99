@@ -53,7 +53,7 @@ module H99
   ) where
 
 import Control.Arrow (first, second)
-import Control.Monad (join, replicateM)
+import Control.Monad (replicateM)
 import Data.Foldable (toList)
 import Data.Kind (Type)
 import Data.List (sortOn)
@@ -83,17 +83,7 @@ import H99.Problem15 (solution15)
 import H99.Problem16 (solution16)
 import H99.Problem17 (solution17)
 import H99.Problem18 (solution18)
-
--- | Rotate a list N places to the left.
---
--- Hint: Use the predefined functions length and (++).
---
--- >>> solution19 3 ['a','b','c','d','e','f','g','h']
--- "defghabc"
--- >>> solution19 (-2) ['a','b','c','d','e','f','g','h']
--- "ghabcdef"
-solution19 :: Int -> [a] -> [a]
-solution19 n = join $ (uncurry (++) .) . (swap .) . splitAt . mod n . length
+import H99.Problem19 (solution19)
 
 -- | Remove the K'th element from a list.
 --
