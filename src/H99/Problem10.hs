@@ -3,7 +3,7 @@ module H99.Problem10 (solution10) where
 import Control.Arrow ((&&&))
 import GHC.Exts (the)
 
-import H99.Problem9 (solution9)
+import H99.Problem09 (solution09)
 
 -- | Run-length encoding of a list.
 --
@@ -12,4 +12,4 @@ import H99.Problem9 (solution9)
 -- >>> solution10 "aaaabccaadeeee"
 -- [(4,'a'),(1,'b'),(2,'c'),(2,'a'),(1,'d'),(4,'e')]
 solution10 :: Eq a => [a] -> [(Int, a)]
-solution10 = map (length &&& the) . solution9
+solution10 = map (length &&& the) . solution09

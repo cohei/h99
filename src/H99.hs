@@ -3,15 +3,15 @@ Answers for <https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems H-99: N
 -}
 
 module H99
-  ( solution1
-  , solution2
-  , solution3
-  , solution4
-  , solution5
-  , solution6
-  , solution7
-  , solution8
-  , solution9
+  ( solution01
+  , solution02
+  , solution03
+  , solution04
+  , solution05
+  , solution06
+  , solution07
+  , solution08
+  , solution09
   , solution10
   , solution11
   , solution12
@@ -52,15 +52,15 @@ module H99
   , solution50
   ) where
 
-import H99.Problem1 (solution1)
-import H99.Problem2 (solution2)
-import H99.Problem3 (solution3)
-import H99.Problem4 (solution4)
-import H99.Problem5 (solution5)
-import H99.Problem6 (solution6)
-import H99.Problem7 (solution7)
-import H99.Problem8 (solution8)
-import H99.Problem9 (solution9)
+import H99.Problem01 (solution01)
+import H99.Problem02 (solution02)
+import H99.Problem03 (solution03)
+import H99.Problem04 (solution04)
+import H99.Problem05 (solution05)
+import H99.Problem06 (solution06)
+import H99.Problem07 (solution07)
+import H99.Problem08 (solution08)
+import H99.Problem09 (solution09)
 import H99.Problem10 (solution10)
 import H99.Problem11 (solution11)
 import H99.Problem12 (solution12)

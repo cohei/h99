@@ -1,4 +1,4 @@
-module H99.Problem9 (solution9) where
+module H99.Problem09 (solution09) where
 
 import Data.List (group)
 
@@ -6,7 +6,7 @@ import Data.List (group)
 --
 -- If a list contains repeated elements they should be placed in separate sublists.
 --
--- >>> solution9 "aaaabccaadeeee"
+-- >>> solution09 "aaaabccaadeeee"
 -- ["aaaa","b","cc","aa","d","eeee"]
-solution9 :: Eq a => [a] -> [[a]]
-solution9 = group
+solution09 :: Eq a => [a] -> [[a]]
+solution09 = group
