@@ -44,6 +44,7 @@ library
     H99.Problem11
     H99.Problem12
     H99.Problem13
+    H99.Problem14
   build-depends:       random
   ghc-options:
     -Wall

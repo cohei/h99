@@ -78,13 +78,7 @@ import H99.Problem10 (solution10)
 import H99.Problem11 (solution11)
 import H99.Problem12 (solution12)
 import H99.Problem13 (solution13)
-
--- | Duplicate the elements of a list.
---
--- >>> solution14 [1, 2, 3]
--- [1,1,2,2,3,3]
-solution14 :: [a] -> [a]
-solution14 = concatMap $ replicate 2
+import H99.Problem14 (solution14)
 
 -- | Replicate the elements of a list a given number of times.
 --
