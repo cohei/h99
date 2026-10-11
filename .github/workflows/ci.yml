@@ -1,0 +1,38 @@
+name: CI
+
+on: [push, workflow_dispatch]
+
+permissions: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: haskell-actions/setup@v2.12.1
+        with:
+          ghc-version: '9.14.1'
+      - run: cabal test
+      - run: cabal haddock
+      - uses: actions/upload-pages-artifact@v5.0.0
+        with:
+          path: haddock/h99
+
+  deploy:
+    if: github.ref == 'refs/heads/master'
+    needs: build
+    runs-on: ubuntu-latest
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5.0.1
